@@ -160,6 +160,72 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/14/HeadReconstructionBasedOnRGBDs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="achao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/14/HeadReconstructionBasedOnRGBDs/" class="post-title-link" itemprop="url">3d Head Reconstruction Based On RGBD Sequence</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-08-14 08:26:59 / Modified: 10:45:41" itemprop="dateCreated datePublished" datetime="2021-08-14T08:26:59+08:00">2021-08-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><div style="float:left;border:solid 1px 000;margin:2px;"><img src="/images/HeadReconstructionBasedOnRGBDs/male.gif"  width="200"></div>
+<div style="float:left;border:solid 1px 000;margin:2px;"><img src="/images/HeadReconstructionBasedOnRGBDs/female.gif" width="200"></div>
+
+<div style="float:none;clear:both;">
+
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>一种基于sfm的形状重建+mvs纹理融合的高分辨率人头重建方案。先从RGBD的序列中选取需要的帧并提取关键信息，再通过struction from motion的方式获取多帧融合的点云，再经过网格重建得到粗糙的人头模型，然后做精细化的网格清洗和优化，接着将3d网格uv展开到2d平面，接着通过Multi-View Stereo的方法采样多帧纹理。</p>
+<h1 id="简化框架"><a href="#简化框架" class="headerlink" title="简化框架"></a>简化框架</h1><p><img src="/images/HeadReconstructionBasedOnRGBDs/framework.jpg" alt="framwork"></p>
+</div>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/13/uncertainty/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -349,7 +415,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
