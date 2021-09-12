@@ -160,6 +160,214 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/12/LearningMultiPathArchitecturesforMultiviewConsistent3DFaceAlignment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="achao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/12/LearningMultiPathArchitecturesforMultiviewConsistent3DFaceAlignment/" class="post-title-link" itemprop="url">Learning Multi-Path Architectures for Multi-view Consistent 3D Face Alignment</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-09-12 17:30:36 / Modified: 18:05:31" itemprop="dateCreated datePublished" datetime="2021-09-12T17:30:36+08:00">2021-09-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>In 3D face alignment,  obtaining a robust model for varied poses is a challenging problem especially when lacking reliableground truth data, consistent training and robust multi-scale network architecture.  To alleviate these issues, we design a multi-view consistent framework with online data generation, and propose the first multi-path one-shot network architecture search(NAS) method in which our suggested multi-path supernet contains all possibly meaningful and learnable connections betweenfeatures at different scales.  A new multi-path network unbiased sampling method is proposed to ensure these connections tobe  equivalently  trained.   Afterwards,  a  Simulated  Annealing  (SA)  based  search  method  is  put  forward  to  efficiently  identifyoptimal multi-scale architectures from the supernet.  Our method can identify representations that are robust to pose variationsby abundant data, effective training mechanism and combining the informative feature responses in different scales and differentposes.  Through extensive experiments on many popular tasks and benchmarks, we demonstrate that our method can achievethe new state-of-the-art performance compared with existing methods.</p>
+<h1 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a>Framework</h1><p><img src="/images/MultiPathMultiview3DFace/framework3.jpg" alt="framwork"></p>
+<h1 id="Compare-to-other-methods"><a href="#Compare-to-other-methods" class="headerlink" title="Compare to other methods"></a>Compare to other methods</h1><p><img src="/images/MultiPathMultiview3DFace/method_compare2.jpg" alt="method_compare"></p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><p>will be released soon</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/31/Push-pullFeedbackImplementsHierarchicalInformationRetrievalEfficiently/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="achao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/31/Push-pullFeedbackImplementsHierarchicalInformationRetrievalEfficiently/" class="post-title-link" itemprop="url">Push-pull Feedback Implements Hierarchical Information Retrieval Efficiently</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-31 23:02:13" itemprop="dateCreated datePublished" datetime="2021-08-31T23:02:13+08:00">2021-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-12 18:09:19" itemprop="dateModified" datetime="2021-09-12T18:09:19+08:00">2021-09-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>实验数据表明，神经通路中除了feedforward连接外，也存在丰富的feedback连接。一个分层网络存储存储目标的分层分类信息，然后从粗到细地信息检索，辅以从高层到底层的动态push-pull feedback。push(正)和pull(负) feedback分别抑制了由于不同类和同类的神经相关性引起的干扰，它们结合极大地提高了检索性能。</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>DNN主要包含从低到高的feedforward连接，然而实验数据表明还存在丰富的从高到低的feedback连接，而且比feedforward多很多。比如analysis-by-synthesis理论指出，feedback连接与feedforward连接协同工作，使得神经系统以交互的方式识别目标，feedforward通路从外部输入提取目标信息，feedback通路生成关于目标的假设，两个通路的交互完成识别任务。基于一个相似的思想，predictive coding理论提出，高层的视觉皮质预测底层的视觉皮质输出。下图揭示了一个神经系统中feedback的静态特性。它展示了猴子在执行contour integration任务时，v1区的神经元分布活动。对于视觉刺激的响应，早期神经元在v1区的活动性增加，展现了push特性；晚期衰减，展现了pull特性。Multi-unit recording揭示了在pull阶段，有很强的来自高层视觉皮质(V4)的负反馈；在push阶段，虽然feedforward的输入和feedback是混合的，因果分析确认确实存在feedback成分。</p>
+<p><img src="/images/push-pull/neural-population-activity-push-pull.jpg" alt="push-pull"></p>
+<p>目标的分类是基于它们在图像级或语义级的相似与不相似，是分层组织的，直觉上同一个类别的目标要比不同类目标更相似。实验数据表明，大脑通过重叠的神经元表示编码这些相似度，相似度越大神经元响应之间的相关性越大。然而神经网络存储和检索相关性记忆模式很困难，Hopfield模型中的少量相关性就会大幅降低记忆检索。这种不稳定性是神经网络固有的，因为它利用突触同时实现信息编码和检索，突触的强度受存储模式的相关性影响，反过来干扰存储模式的检索。因此引起了一个神经编码的困境：一方面，神经元系统需要利用相关神经元表示来编码分类相关关系；另一方面，为了可靠地检索信息，这些模式相关性是有害的。</p>
+<p>我们考虑一个神经系统采用从粗到细地检索过程，高层的分类表示首先被检索，因为它们比低层的分类相关性更少，因此有着更好的检索准确率；然后通过feedback，高层检索的分类信息促进了底层分类表示的检索。我们阐明最优的feedback应该是动态的，随着时间从正(push)到负(pull)变化，它们分别抑制由于不同类和同类的模式相关性引起的干扰</p>
+<h1 id="Push-pull-feedback"><a href="#Push-pull-feedback" class="headerlink" title="Push-pull feedback"></a>Push-pull feedback</h1><p>The joint effect of the push-pull feedback<br><img src="/images/push-pull/push-pull-feedback-effect.jpg" alt="push-pull-feedback-effect"></p>
+<p>The recurrent connections between neurons in the same layer are constructed by the Hebbian covariance learning rule<br><img src="/images/push-pull/hebb.jpg" alt="hebb"></p>
+<p>The feedback connections of push and pull<br><img src="/images/push-pull/feedback-connections.jpg" alt="push-pull-feedback-connections"></p>
+<h1 id="Applying-to-Real-Images"><a href="#Applying-to-Real-Images" class="headerlink" title="Applying to Real Images"></a>Applying to Real Images</h1><p><img src="/images/push-pull/imagenet-expr.jpg" alt="imagenet-expr"></p>
+<h1 id="Conclusion-and-Discussion"><a href="#Conclusion-and-Discussion" class="headerlink" title="Conclusion and Discussion"></a>Conclusion and Discussion</h1><p>神经系统有资源实现一种动态feedback，这些feedback通过不同的信号通路实现。例如，push feedback可能通过从高层到低层的直接兴奋突触实现，通过短期突触抑制来控制停止；另一方面，pull feedback可能通过一种以抑制性中间神经元为媒介的分离通路传导。</p>
+<p>通过学习feedback，解决了神经编码中神经相关性角色冲突的困境。为了减少相关性的干扰，提出神经系统采用一个从粗到细的信息检索过程。在收到外部信息后，高层分类模式首先被搜索到，其后续可以通过动态push-pull feedback来加强低层分类模式检索。从粗到细的信息检索与认知科学中的全局优先概念一致，即大脑首先提取目标几何特征的全局(如拓扑)，而不是局部(如欧几里得)。全局优先的计算优势就是首先提取全局特征，再通过push-pull feedback来克服神经元相关性干扰。一些实验发现认为，从视网膜到上丘脑的背侧通路或者说下皮层通路，执行提取目标全局特征的快速计算；而沿着腹侧通路，push-pull feedback 辅助feedforward输入以一个相对慢的方式提取目标精细的结构。</p>
+<h1 id="code"><a href="#code" class="headerlink" title="code"></a>code</h1><p>wait to release</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/CORnet-S/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="achao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/27/CORnet-S/" class="post-title-link" itemprop="url">CORnet-S</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-27 09:39:53" itemprop="dateCreated datePublished" datetime="2021-08-27T09:39:53+08:00">2021-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-12 16:47:14" itemprop="dateModified" datetime="2021-09-12T16:47:14+08:00">2021-09-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>深度卷积人工神经网络是建模灵长类动物腹侧流视觉处理机制的最具代表性的候选模型。过去的几年里受到大脑解剖学激发，这些ANN已经从简单的8层网络(alexnet)进化成极深以及多分支的网络架构，目标分类的性能也越来越好，然而也带来了它们到底有多像大脑的问题。特别是机器学习社区的典型的深度模型通常很难映射到大脑解剖结构上，由于它们巨大的层数和缺乏生物上很重要的连接，例如递归。这里我们阐述了大脑和机器学习高性能更好的解剖学对齐和神经科学测量一样是可以不矛盾的。我们研发了CORnet-S, 一个与4个解剖学区域一一对应以及包含递归连接的ANN，通过Brain-Score来指导，一个用于量化灵长类腹侧通路建模功能保真度的全新大尺度神经科学与行为学混合benchmarks。虽然比大多数模型层数浅很多，但是是Brain-Score上最好的模型，也在imagenet上超过其他同大小模型。此外，我们对CORnet-S环路变体的拓展分析揭示了递归性是Brain-Score和imagenet上top1性能的主要预测因素。最后，我们报道了CORnet-S “IT”神经元群的时间演化类似于实际猴子的IT群动态。综上所述，这些结果构建了CORnet-S，一个紧致的递归ANN，作为当前灵长类腹侧视觉流的最佳模型。</p>
+<h1 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a>Framework</h1><p><img src="/images/CORnet-S/framework.jpg" alt="framwork"></p>
+<h1 id="Brain-Score-Comparing-models-to-brain"><a href="#Brain-Score-Comparing-models-to-brain" class="headerlink" title="Brain-Score: Comparing models to brain"></a>Brain-Score: Comparing models to brain</h1><p>Brain-Score预测(a)在非人类灵长类动物的V4和IT视觉区域中，每一个神经元记录点对每一个测试自然图像的平均自然响应(b)对每一个测试图像的目标对象，人类的平均选择(c)在非人类灵长类动物的IT区域，目标分类是什么时候解决的。brain-score就是behavioral score, the V4 neural score, the IT neural score, 以及 the neural dynamics score的均值。</p>
+<p>Neural predictivity给出了评估原系统（人工神经网络）对给定图像的响应能多好地预测目标系统（灵长类动物IT视觉区神经元响应）的响应。原神经元到目标神经元的映射通过在图像上训练PLS回归得到。</p>
+<p>Behavioral predictivity通过计算真实的灵长类动物行为选择与模型预测的Pearson’s r correlation来得到。</p>
+<p>Object solution times是指预测通过一个阈值（猴子行为输出定义的阈值）的精确ms时。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/14/HeadReconstructionBasedOnRGBDs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -415,7 +623,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

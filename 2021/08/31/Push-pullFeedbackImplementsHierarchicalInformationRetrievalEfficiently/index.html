@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Abstract实验数据表明，神经通路中除了feedforward连接外，也存在丰富的feedback连接。一个分层网络存储存储目标的分层分类信息，然后从粗到细地信息检索，辅以从高层到底层的动态push-pull feedback。push(正)和pull(负) feedback分别抑制了由于不同类和同类的神经相关性引起的干扰，它们结合极大地提高了检索性能。 IntroductionDNN主要包含">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Push-pull Feedback Implements Hierarchical Information Retrieval Efficiently">
+<meta property="og:url" content="http://example.com/2021/08/31/Push-pullFeedbackImplementsHierarchicalInformationRetrievalEfficiently/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Abstract实验数据表明，神经通路中除了feedforward连接外，也存在丰富的feedback连接。一个分层网络存储存储目标的分层分类信息，然后从粗到细地信息检索，辅以从高层到底层的动态push-pull feedback。push(正)和pull(负) feedback分别抑制了由于不同类和同类的神经相关性引起的干扰，它们结合极大地提高了检索性能。 IntroductionDNN主要包含">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/push-pull/neural-population-activity-push-pull.jpg">
+<meta property="og:image" content="http://example.com/images/push-pull/push-pull-feedback-effect.jpg">
+<meta property="og:image" content="http://example.com/images/push-pull/hebb.jpg">
+<meta property="og:image" content="http://example.com/images/push-pull/feedback-connections.jpg">
+<meta property="og:image" content="http://example.com/images/push-pull/imagenet-expr.jpg">
+<meta property="article:published_time" content="2021-08-31T15:02:13.000Z">
+<meta property="article:modified_time" content="2021-09-12T10:09:19.839Z">
+<meta property="article:author" content="achao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/push-pull/neural-population-activity-push-pull.jpg">
+
+<link rel="canonical" href="http://example.com/2021/08/31/Push-pullFeedbackImplementsHierarchicalInformationRetrievalEfficiently/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Push-pull Feedback Implements Hierarchical Information Retrieval Efficiently | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-resume">
+
+    <a href="/resume/" rel="section"><i class="fa fa-user fa-fw"></i>resume</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/31/Push-pullFeedbackImplementsHierarchicalInformationRetrievalEfficiently/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="achao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Push-pull Feedback Implements Hierarchical Information Retrieval Efficiently
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-31 23:02:13" itemprop="dateCreated datePublished" datetime="2021-08-31T23:02:13+08:00">2021-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-12 18:09:19" itemprop="dateModified" datetime="2021-09-12T18:09:19+08:00">2021-09-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>实验数据表明，神经通路中除了feedforward连接外，也存在丰富的feedback连接。一个分层网络存储存储目标的分层分类信息，然后从粗到细地信息检索，辅以从高层到底层的动态push-pull feedback。push(正)和pull(负) feedback分别抑制了由于不同类和同类的神经相关性引起的干扰，它们结合极大地提高了检索性能。</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>DNN主要包含从低到高的feedforward连接，然而实验数据表明还存在丰富的从高到低的feedback连接，而且比feedforward多很多。比如analysis-by-synthesis理论指出，feedback连接与feedforward连接协同工作，使得神经系统以交互的方式识别目标，feedforward通路从外部输入提取目标信息，feedback通路生成关于目标的假设，两个通路的交互完成识别任务。基于一个相似的思想，predictive coding理论提出，高层的视觉皮质预测底层的视觉皮质输出。下图揭示了一个神经系统中feedback的静态特性。它展示了猴子在执行contour integration任务时，v1区的神经元分布活动。对于视觉刺激的响应，早期神经元在v1区的活动性增加，展现了push特性；晚期衰减，展现了pull特性。Multi-unit recording揭示了在pull阶段，有很强的来自高层视觉皮质(V4)的负反馈；在push阶段，虽然feedforward的输入和feedback是混合的，因果分析确认确实存在feedback成分。</p>
+<p><img src="/images/push-pull/neural-population-activity-push-pull.jpg" alt="push-pull"></p>
+<p>目标的分类是基于它们在图像级或语义级的相似与不相似，是分层组织的，直觉上同一个类别的目标要比不同类目标更相似。实验数据表明，大脑通过重叠的神经元表示编码这些相似度，相似度越大神经元响应之间的相关性越大。然而神经网络存储和检索相关性记忆模式很困难，Hopfield模型中的少量相关性就会大幅降低记忆检索。这种不稳定性是神经网络固有的，因为它利用突触同时实现信息编码和检索，突触的强度受存储模式的相关性影响，反过来干扰存储模式的检索。因此引起了一个神经编码的困境：一方面，神经元系统需要利用相关神经元表示来编码分类相关关系；另一方面，为了可靠地检索信息，这些模式相关性是有害的。</p>
+<p>我们考虑一个神经系统采用从粗到细地检索过程，高层的分类表示首先被检索，因为它们比低层的分类相关性更少，因此有着更好的检索准确率；然后通过feedback，高层检索的分类信息促进了底层分类表示的检索。我们阐明最优的feedback应该是动态的，随着时间从正(push)到负(pull)变化，它们分别抑制由于不同类和同类的模式相关性引起的干扰</p>
+<h1 id="Push-pull-feedback"><a href="#Push-pull-feedback" class="headerlink" title="Push-pull feedback"></a>Push-pull feedback</h1><p>The joint effect of the push-pull feedback<br><img src="/images/push-pull/push-pull-feedback-effect.jpg" alt="push-pull-feedback-effect"></p>
+<p>The recurrent connections between neurons in the same layer are constructed by the Hebbian covariance learning rule<br><img src="/images/push-pull/hebb.jpg" alt="hebb"></p>
+<p>The feedback connections of push and pull<br><img src="/images/push-pull/feedback-connections.jpg" alt="push-pull-feedback-connections"></p>
+<h1 id="Applying-to-Real-Images"><a href="#Applying-to-Real-Images" class="headerlink" title="Applying to Real Images"></a>Applying to Real Images</h1><p><img src="/images/push-pull/imagenet-expr.jpg" alt="imagenet-expr"></p>
+<h1 id="Conclusion-and-Discussion"><a href="#Conclusion-and-Discussion" class="headerlink" title="Conclusion and Discussion"></a>Conclusion and Discussion</h1><p>神经系统有资源实现一种动态feedback，这些feedback通过不同的信号通路实现。例如，push feedback可能通过从高层到低层的直接兴奋突触实现，通过短期突触抑制来控制停止；另一方面，pull feedback可能通过一种以抑制性中间神经元为媒介的分离通路传导。</p>
+<p>通过学习feedback，解决了神经编码中神经相关性角色冲突的困境。为了减少相关性的干扰，提出神经系统采用一个从粗到细的信息检索过程。在收到外部信息后，高层分类模式首先被搜索到，其后续可以通过动态push-pull feedback来加强低层分类模式检索。从粗到细的信息检索与认知科学中的全局优先概念一致，即大脑首先提取目标几何特征的全局(如拓扑)，而不是局部(如欧几里得)。全局优先的计算优势就是首先提取全局特征，再通过push-pull feedback来克服神经元相关性干扰。一些实验发现认为，从视网膜到上丘脑的背侧通路或者说下皮层通路，执行提取目标全局特征的快速计算；而沿着腹侧通路，push-pull feedback 辅助feedforward输入以一个相对慢的方式提取目标精细的结构。</p>
+<h1 id="code"><a href="#code" class="headerlink" title="code"></a>code</h1><p>wait to release</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/27/CORnet-S/" rel="prev" title="CORnet-S">
+      <i class="fa fa-chevron-left"></i> CORnet-S
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/12/LearningMultiPathArchitecturesforMultiviewConsistent3DFaceAlignment/" rel="next" title="Learning Multi-Path Architectures for Multi-view Consistent 3D Face Alignment">
+      Learning Multi-Path Architectures for Multi-view Consistent 3D Face Alignment <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Push-pull-feedback"><span class="nav-number">3.</span> <span class="nav-text">Push-pull feedback</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Applying-to-Real-Images"><span class="nav-number">4.</span> <span class="nav-text">Applying to Real Images</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Conclusion-and-Discussion"><span class="nav-number">5.</span> <span class="nav-text">Conclusion and Discussion</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#code"><span class="nav-number">6.</span> <span class="nav-text">code</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">achao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">achao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
